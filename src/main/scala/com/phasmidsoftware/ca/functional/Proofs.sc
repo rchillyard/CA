@@ -1,6 +1,6 @@
 // Proofs
 
-import com.phasmidsoftware.ca.{Cons, MyList}
+import com.phasmidsoftware.ca.modules.{Cons, MyList}
 
 // Create a MyList of three elements and call it ys0
 val ys0: Cons[Int] = MyList(0, 1, 2).asInstanceOf[Cons[Int]]

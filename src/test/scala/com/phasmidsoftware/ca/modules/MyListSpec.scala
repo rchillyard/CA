@@ -1,4 +1,4 @@
-package com.phasmidsoftware.ca
+package com.phasmidsoftware.ca.modules
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should
