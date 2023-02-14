@@ -60,3 +60,25 @@ val Complex(minusOne, zero) = pi
 // Now print the values of minusOne and zero to show that it works
 println(s"minusOne: $minusOne, zero: $zero")
 
+// Custom class to represent a decimal number which extends AnyVal
+class Decimal(val x: Double) extends AnyVal
+
+// Companion object to Decimal: defines the unapply method for pattern-matching
+object Decimal {
+    // We have to write this explicitly because Decimal is not a case class
+    def unapply(x: Decimal): Option[(Long, Double)] = {
+        val whole = math.round(x.x)
+        Some(whole -> (x.x - whole))
+    }
+}
+
+// pi as a Decimal.
+// Note that, because we didn't declare Decimal to be a case class,
+// there's no good declaration of toString.
+val pi = new Decimal(math.Pi)
+
+// decompose pi into its whole and fractional parts
+pi match {
+    case Decimal(whole, fraction) => println(s"$whole+$fraction")
+}
+
