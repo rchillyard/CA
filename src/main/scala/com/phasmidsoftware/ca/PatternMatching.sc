@@ -5,7 +5,7 @@ import scala.annotation.tailrec
 val m = Map(1 -> "uno", 2 -> "dos", 3 -> "tres")
 
 // Here we define first as 1 -> "uno" and rest as the remaining key-value pairs of m.
-val first :: rest = m.toSeq
+val first :: rest = m.toList
 
 @tailrec
 def printList(xs: List[Int]): Unit = // Method to print a list of Int.

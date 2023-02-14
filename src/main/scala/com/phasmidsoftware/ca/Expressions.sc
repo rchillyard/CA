@@ -1,3 +1,4 @@
+import scala.annotation.tailrec
 // Expressions
 
 1 + 1 // A simple expression: 1 plus 1 is 2
@@ -8,12 +9,14 @@ println("Hello World!") // NOTE that this does not yield a value (there is no re
     // That is to say it is a statement.
     // But it does cause a side-effect to occur: a message is printed in the console
 
-def f(x: Int): Int = if (x==1) 1 else x * f(x-1) // non-tail-recursive factorial
+// non-tail-recursive factorial method
+def f(x: Int): Int = if (x == 1) 1 else x * f(x - 1)
 
 f(5)    // should return an Int with value 120
 
-def g(r: BigInt, x: Int): BigInt = // Tail-recursive method to calculate factorial(x)
-    if (x==1) r else g(r * x, x - 1)
+// Tail-recursive method to calculate factorial(x)
+@tailrec
+def g(r: BigInt, x: Int): BigInt = if (x == 1) r else g(r * x, x - 1)
 
 g(1, 100) // Tail-Recursive version can easily get the 100th Factorial
 
