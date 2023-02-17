@@ -18,4 +18,6 @@ object Parser {
         }
     }
 
+    def asDouble(ze: Either[Double, Int]): Double = ze.fold[Double](x => x, x => x)
+
 }

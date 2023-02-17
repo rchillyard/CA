@@ -1,10 +1,6 @@
-import com.phasmidsoftware.ca.modules.Parser.parseNumber
-import java.net.URL
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.duration.Duration
-import scala.concurrent.{Await, Future}
-import scala.io.Source
 // For-comprehensions and Monads
+
+import com.phasmidsoftware.ca.modules.Parser.{asDouble, parseNumber}
 
 // We CAN use a for-comprehension like a loop in Java:
 val xs = Array[Int](1, 2, 3)
@@ -23,10 +19,21 @@ val sum = xs.sum
 
 // But, we can do so much more with a for-comprehension
 // We can use it for "map2"--where we know the values in advance.
-def asDouble(ze: Either[Double, Int]): Double = ze.fold[Double](x => x, x => x)
+val (ao, bo) = (Option(1), Option(null))
+// We get None as a result because we only have one existing Option value.
+for (a <- ao; b <- bo) yield a + b
+
+// Here's a more complex example of the same thing.
 for (xe <- parseNumber("42"); ye <- parseNumber("3.1415927")) yield asDouble(xe) + asDouble(ye)
 
 // But we can also use it where a generator depends on the result of the previous generator, etc.
+
+import java.net.URL
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.duration.Duration
+import scala.concurrent.{Await, Future}
+import scala.io.Source
+
 val futureString: Future[String] = for {
     u <- Future(new URL("https://www.phasmidsoftware.com"))
     c <- Future(u.openConnection())
