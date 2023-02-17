@@ -30,7 +30,7 @@ def printListAny(xs: List[Any]): Unit =
         case h :: t =>
             h match {
                 // Another pattern match, this time on the type Int.
-                case x: Int => println(x+1); printListAny(t) // if h is an Int, print h+1 then invoke printlList on the tail
+                case x: Int => println(x + 1); printListAny(t) // if h is an Int, print h+1 then invoke printlList on the tail
                 // The following matches anything.
                 case _ => println(h); printListAny(t) // print the head then invoke printlList on the tail
             }

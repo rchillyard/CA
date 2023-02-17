@@ -1,10 +1,20 @@
+import scala.util.Random
 // Types and Type constructors:
 
-val x = math.Pi // the compiler uses type inference to deduce that x has type Double.
+val b = true // the compiler uses type inference to deduce that b has type Boolean.
 
 val y = 42 // the compiler uses type inference to deduce that x has type Int.
 
+val x = math.Pi // the compiler uses type inference to deduce that x has type Double.
+
 val y: Double = 42 // we overrode type inference to require that y is actually a Double, not an Int.
+
+val z: java.lang.String = "Hello World!" // Hello World is a java.lang.String (Scala uses the Java type as is).
+
+/**
+ * Prime will be a BigInt that is a Prime number of 12 bits except once in every million cases.
+ */
+val prime: BigInt = BigInt(12, 20, new Random())
 
 /**
  * Declaration of a new type MyTrait with no behavior being what it inherits from AnyRef.

@@ -46,7 +46,7 @@ object MyList {
  * A (leaf) case class of MyList[X] called Cons which constructs a MyList from a head (value) and a tail(next).
  *
  * @param value the head of the resulting MyList.
- * @param next the tail of the resulting MyList.
+ * @param next  the tail of the resulting MyList.
  * @tparam X the underlying type of the resulting MyList.
  */
 case class Cons[X](value: X, val next: MyList[X]) extends MyList[X] {
