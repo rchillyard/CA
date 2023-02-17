@@ -26,7 +26,8 @@ val (left, right) = List(1, 2, 3) splitAt 1
 // But first a collection (an iterable container type):
 val countryCodes: List[String] = List("1", "44", "33", "91", "86")
 
-// Let's wrap the invocation of apply to the countryCodes in Try.
+// Let's wrap the invocation of apply to the countryCodes in Try
+// (a monadic container designed to make exceptions safe).
 // That way we see the failure but we don't terminate the program.
 // We've constructed a new type: Try[String] where Try is a monadic container.
 
@@ -41,7 +42,8 @@ fifthCountryCode foreach println
 // Now, we get the index correct and we get a successful result.
 val fifthCountryCode: Try[String] = Try(countryCodes(4))
 
-// We can do something similar with Option, another monadic container:
+// We can do something similar with Option,
+// another monadic container designed to avoid using null.
 val countryCodeUK: Option[String] = countryCodes.find(_ == "44")
 
 // The following code results in None (a sub-type of Option[...])
@@ -109,3 +111,25 @@ stack.push(42)
 println(stack)
 
 stack.pop
+
+// There are two more monadic containers we didn't mention before:
+// Future...
+
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
+import scala.language.postfixOps // Needed for Future.apply
+
+val future = Future {
+    (Stream from 1 take 10000 toList).sum
+}
+future.onComplete(xy => println(xy))
+
+// and Either...
+
+import com.phasmidsoftware.ca.modules.Parser.parseNumber
+
+val perhapsPi: Option[Either[Double, Int]] = parseNumber("3.1415927")
+
+parseNumber("42")
+
+parseNumber("not a number")
