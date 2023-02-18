@@ -55,3 +55,15 @@ greet
 lazy val greet = "Howdy, folks!"
 greet
 
+// Another powerful kind of laziness (used by RDD in Spark) is decoration
+// As always, this type of laziness is provided by using functions.
+
+import com.phasmidsoftware.ca.modules.LazyCollection
+
+val xs = LazyCollection(List(1, 2, 3))
+xs.foreach(println)
+
+val ys = xs map (_.toDouble) // no evaluation
+val zs = ys map (_.toString) // still no evaluation
+
+zs.foreach(println) // finally, we must evaluate to get the values.
