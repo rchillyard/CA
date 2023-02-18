@@ -2,32 +2,38 @@ package com.phasmidsoftware.ca.modules
 
 import scala.util.Random
 
-case class WheelOfFortune[T](map: Map[T, Int])(implicit random: Random) {
-    // The total of all the (weighting) values corresponds to 1.
-    // And thus the probability of any event happening is the weighting over the total weights.
-    val (events, odds) = map.toSeq.unzip
+/**
+ * Wheel of Fortune class for events of type T.
+ * The chances in the map are the weights.
+ *
+ * @param map    the map of events to chances.
+ * @param random an implicit Random.
+ * @tparam T the event type.
+ */
+case class WheelOfFortune[T](map: Seq[(T, Int)])(implicit random: Random) {
+    // The total of all the chances corresponds to probability 1.0
+    // And thus the probability of any event happening is the event's chances divided by the total chances.
+    private val (events, odds) = map.unzip
     private val total = odds.sum
-    val accumulated: Map[T, Int] = (events zip (odds.scanLeft(0)((a, x) => a + x))).toMap
+    private val accum: Seq[Int] = odds.scanLeft(0)((a, x) => a + x)
+    private val accumulated = events zip accum.tail
 
-    def next: T = {
-        val n = random.nextInt(total)
+    def next: T = selectEvent(random.nextInt(total))
 
-        def tooSmall(t: (T, Int)): Boolean = t._2 < n
+    private def selectEvent(n: Int) = {
+        def tooSmall(t: (T, Int)): Boolean = t._2 <= n
 
         (accumulated dropWhile tooSmall).head._1
     }
-
 }
 
 object WheelOfFortune extends App {
-    implicit val random = new Random
+    private implicit val random = new Random
 
-    def createFromSeq[X](m: Seq[Tuple2[X, Int]])(implicit random: Random): WheelOfFortune[X] = new WheelOfFortune[X](m.toMap)
-
-    def create[X](m: Tuple2[X, Int]*)(implicit random: Random): WheelOfFortune[X] = createFromSeq[X](m)
+    def create[X](m: Tuple2[X, Int]*)(implicit random: Random): WheelOfFortune[X] = new WheelOfFortune[X](m)
 
     val wheelOfFortune = create[Boolean](true -> 1, false -> 1)
-    wheelOfFortune.next
-    wheelOfFortune.next
-    wheelOfFortune.next
+    println(wheelOfFortune.next)
+    println(wheelOfFortune.next)
+    println(wheelOfFortune.next)
 }

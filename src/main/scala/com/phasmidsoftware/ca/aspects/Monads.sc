@@ -1,6 +1,8 @@
 // For-comprehensions and Monads
 
 import com.phasmidsoftware.ca.modules.Parser.{asDouble, parseNumber}
+import com.phasmidsoftware.ca.modules.WheelOfFortune
+import scala.util.Random
 
 // We CAN use a for-comprehension like a loop in Java:
 val xs = Array[Int](1, 2, 3)
@@ -22,6 +24,12 @@ val sum = xs.sum
 val (ao, bo) = (Option(1), Option(null))
 // We get None as a result because we only have one existing Option value.
 for (a <- ao; b <- bo) yield a + b
+
+// Using a kind of three-way coin-flip where heads = Some(true),
+// return heads if two flips are heads.
+implicit val random: Random = new Random()
+val wheelOfFortune = WheelOfFortune.create[Option[Boolean]](Some(true) -> 1, Some(false) -> 1, None -> 1)
+val twoHeads = for (x <- wheelOfFortune.next; y <- wheelOfFortune.next) yield (x && y)
 
 // Here's a more complex example of the same thing.
 for (xe <- parseNumber("42"); ye <- parseNumber("3.1415927")) yield asDouble(xe) + asDouble(ye)
