@@ -26,13 +26,19 @@ case class WheelOfFortune[E](map: Seq[(E, Int)])(implicit random: Random) {
     }
 }
 
-object WheelOfFortune extends App {
-    implicit val random: Random = new Random
+object WheelOfFortune {
 
     def create[X](m: (X, Int)*)(implicit random: Random): WheelOfFortune[X] = new WheelOfFortune[X](m)
 
-    val wheelOfFortune = create[Boolean](true -> 1, false -> 1)
-    println(wheelOfFortune.next)
-    println(wheelOfFortune.next)
-    println(wheelOfFortune.next)
+    def coinFlip(implicit random: Random): WheelOfFortune[Boolean] = create[Boolean](true -> 1, false -> 1)
+}
+
+
+object Main extends App {
+    implicit val random: Random = new Random
+
+    val coinFlip = WheelOfFortune.create[Boolean](true -> 1, false -> 1)
+    println(coinFlip.next)
+    println(coinFlip.next)
+    println(coinFlip.next)
 }
