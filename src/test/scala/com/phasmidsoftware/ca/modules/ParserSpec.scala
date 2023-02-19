@@ -6,13 +6,12 @@ import org.scalatest.matchers.should
 
 class ParserSpec extends AnyFlatSpec with should.Matchers {
 
-    behavior of "ParserSpec"
+    behavior of "Parser"
 
     it should "asDouble" in {
         parseNumber("42").map(asDouble) shouldBe Some(42.0)
         parseNumber("3.1415927").map(asDouble) shouldBe Some(3.1415927)
         parseNumber("").map(asDouble) shouldBe None
-
     }
 
     it should "parseNumber" in {
@@ -20,5 +19,4 @@ class ParserSpec extends AnyFlatSpec with should.Matchers {
         parseNumber("3.1415927") shouldBe Some(Left(3.1415927))
         parseNumber("") shouldBe None
     }
-
 }
