@@ -11,6 +11,8 @@ scalacOptions ++= Seq("-encoding", "UTF-8")
 
 
 libraryDependencies ++= Seq(
-    "org.scalacheck" %% "scalacheck" % "1.17.0" % "test",
+    "org.apache.spark" %% "spark-core" % "3.0.1",
+    "org.scalacheck" %% "scalacheck" % "1.17.0" % Test,
+    "org.scalamock" %% "scalamock" % "5.1.0" % Test,
     "org.scalatest" %% "scalatest" % "3.2.15" % Test
 )
