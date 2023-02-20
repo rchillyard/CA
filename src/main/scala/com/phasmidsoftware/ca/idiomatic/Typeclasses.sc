@@ -34,7 +34,7 @@ trait Additive[X] {
 
 def sum[X: Additive](xs: Seq[X]): X = {
     val additiveX = implicitly[Additive[X]]
-    xs.foldLeft(additiveX.zero)((a, x) => additiveX.+(a,x))
+    xs.foldLeft(additiveX.zero)((a, x) => additiveX.+(a, x))
 }
 
 /**

@@ -15,7 +15,7 @@ val z = ("A", 1, math.Pi) // this is a Tuple3[String,Int,Double], a.k.a. (String
 val x = z.productElement(1)
 
 // We can "zip" two lists together into a list of tuples.
-// Both the lists (and the result) are immuntable.
+// Both the lists (and the result) are immutable.
 val zs = List(1, 2, 3) zip List("A", "B", "C")
 
 // If we have a list and we want to split it into the first half (left) and the second half (right)...

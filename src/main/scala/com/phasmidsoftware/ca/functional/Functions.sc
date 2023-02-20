@@ -13,7 +13,7 @@ def m1(x: Int): Int = x * 2 // equivalent to f1
 
 def m2(x: Int): Double = x + 0.5 // equivalent to f2
 
-val f4: Int => Double = (m1 _) andThen m2 // equivalent to f3
+val f4: Int => Double = m1 _ andThen m2 // equivalent to f3
 // But note that the syntax requires the conversion of m1 to be explicit
 
 f4(3) // should yield 6.5

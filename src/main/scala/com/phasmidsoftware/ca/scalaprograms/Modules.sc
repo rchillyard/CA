@@ -47,12 +47,12 @@ case class ValueIdentifier[+ID, V](override val identifier: ID, value: V) extend
 /**
  * An invalid (empty) identifier whose ID is Unit (i.e. a non-object).
  */
-case object InvalidIdentifer extends BaseIdentifiable((), None) {
+case object InvalidIdentifier extends BaseIdentifiable((), None) {
     override def toString: String = "InvalidIdentifier"
 }
 
 // Declare a ValueIdentifier with given id and value (both Strings in this case)
 val x = ValueIdentifier("LVII", "Hello World!")
 
-// Declare a InvalidIdentifer
-val invalid = InvalidIdentifer
+// Declare a InvalidIdentifier
+val invalid = InvalidIdentifier

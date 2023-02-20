@@ -15,7 +15,7 @@ def show(c: Complex): String = c match {
     case Complex(0, 1) => "pi/2" // constant extractor pattern
     case Complex(r, i) if i == 0 => s"real number: $r" // guarded extractor
     case Complex(r, i) => s"complex number: $r + i$i" // extractor
-    case x => s"error: ${x}" // variable pattern -- matches everything
+    case x => s"error: $x" // variable pattern -- matches everything
     // The following looks OK but causes compiler warnings because it can't be reached.
     case _ => "" // matches everything anonymously.
 }
@@ -24,7 +24,7 @@ show(z)
 
 // Now, we will demonstrate sage of an explicit unapply method.
 case class Factor(f: Int) {
-    def isMultiple(x: Int): Boolean = x % f == 0
+    private def isMultiple(x: Int): Boolean = x % f == 0
 
     // Unapply always returns an Option of a tuple of all appropriate values (members for a case class)
     // But here, there's only one value so rather than have a 1-tuple, we just use Int directly.

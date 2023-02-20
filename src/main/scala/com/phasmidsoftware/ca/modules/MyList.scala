@@ -25,7 +25,7 @@ object MyList {
     /**
      * An apply method to yield a MyList from a comma-separated list of X values (known in Java as varargs).
      *
-     * @param xs a "varags" list of Xs.
+     * @param xs a "varargs" list of Xs.
      * @tparam X the underlying type of the resulting MyList.
      * @return a MyList[X].
      */
@@ -49,7 +49,7 @@ object MyList {
  * @param next  the tail of the resulting MyList.
  * @tparam X the underlying type of the resulting MyList.
  */
-case class Cons[X](value: X, val next: MyList[X]) extends MyList[X] {
+case class Cons[X](value: X, next: MyList[X]) extends MyList[X] {
     def length: Int = 1 + next.length // the length of this Cons is 1 plus the length of next.
 }
 

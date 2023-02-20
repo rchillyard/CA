@@ -29,7 +29,7 @@ for (a <- ao; b <- bo) yield a + b
 // return heads if two flips are heads.
 implicit val random: Random = new Random()
 val wheelOfFortune = WheelOfFortune.create[Option[Boolean]](Some(true) -> 1, Some(false) -> 1, None -> 1)
-val twoHeads = for (x <- wheelOfFortune.next; y <- wheelOfFortune.next) yield (x && y)
+val twoHeads = for (x <- wheelOfFortune.next; y <- wheelOfFortune.next) yield x && y
 
 // Here's a more complex example of the same thing.
 for (xe <- parseNumber("42"); ye <- parseNumber("3.1415927")) yield asDouble(xe) + asDouble(ye)

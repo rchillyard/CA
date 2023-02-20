@@ -44,11 +44,11 @@ class WheelOfFortuneSpec extends AnyFlatSpec with should.Matchers with PrivateMe
 
     it should "yield proper relative frequencies in video poker" in {
         implicit val r: Random = new Random()
-        val wheel = WheelOfFortune.create("highcard" -> 1302540, "pair" -> 1098240, "twopair" -> 123552, "trips" -> 54912, "straight" -> 10200, "flush" -> 5108, "fullhouse" -> 3744, "quads" -> 624, "straightflush" -> 36, "royal" -> 4)
+        val wheel = WheelOfFortune.create("high-card" -> 1302540, "pair" -> 1098240, "two-pair" -> 123552, "trips" -> 54912, "straight" -> 10200, "flush" -> 5108, "full-house" -> 3744, "quads" -> 624, "straight-flush" -> 36, "royal" -> 4)
         val frequencies = new Frequencies
         for (_ <- 1 to 1000000) frequencies.increment(wheel.next)
         frequencies("pair") / 10000.0 shouldBe 42.0 +- 5
-        frequencies("twopair") / 10000.0 shouldBe 4.8 +- 1
+        frequencies("two-pair") / 10000.0 shouldBe 4.8 +- 1
         frequencies("trips") / 10000.0 shouldBe 2.0 +- 0.7
     }
 
