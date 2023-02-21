@@ -27,8 +27,9 @@ areaOfEllipseWithMajorFixedAt3(2)
 
 // Lift
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-import scala.util.Try
+import scala.util._
 
 def lift[T, R](f: T => R): Option[T] => Option[R] = _ map f
 
@@ -45,7 +46,6 @@ lift(circumference)(maybeRadius) // yields an option of Double
 def lift[T, R](f: T => R): Try[T] => Try[R] = _ map f // lifting to Try
 def lift[T, R](f: T => R): List[T] => List[R] = _ map f // lifting to List
 
-import scala.concurrent.ExecutionContext.Implicits.global
 
 def lift[T, R](f: T => R): Future[T] => Future[R] = _ map f // lifting to Future
 
@@ -83,7 +83,28 @@ lift2(areaOfEllipse _)(maybeMajorAxis, maybeMinorAxis) // Not sure why areaOfEll
 for (major <- maybeMajorAxis; minor <- maybeMinorAxis) yield areaOfEllipse(major, minor)
 
 
+// Suppose we have a whole bunch of Options (or any other container).
 
+val numbersTypedOnConsole = List("1", "2", "3-", "4", "", "5")
 
+val xys: Seq[Try[Int]] = numbersTypedOnConsole map (x => Try(x.toInt))
+
+// So, we've got a Seq[Try[Int]].  What if we want a Try[Seq[Int]] instead?
+// The sequence isn't much use to us, let's suppose, unless all of the numbers are good.
+
+def sequence[X](xys: Seq[Try[X]]): Try[Seq[X]] = xys.foldLeft[Try[Seq[X]]](Success(Nil)) {
+    case (Failure(x), _) => Failure(x)
+    case (Success(a), Success(x)) => Success(a :+ x)
+    case (_, Failure(x)) => Failure(x)
+}
+
+sequence(xys)
+
+// This sequence idea is particularly useful when you've spawned lots of Futures.
+// So, in the Future object, there's a sequence method that works just like this.
+
+// How about getting a good typist?
+
+sequence(List("1", "2", "3", "4", "5", "6") map (x => Try(x.toInt)))
 
 
