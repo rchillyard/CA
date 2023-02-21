@@ -1,5 +1,3 @@
-import scala.annotation.tailrec
-import scala.io.Source
 // Idiomatic
 
 // Take a look at [[https://github.com/alexandru/scala-best-practices]] for best practices.
@@ -28,6 +26,9 @@ list.reduce(_ + _) // BTW, never use this if there's a possibility of list being
 def factorial(n: Int): Long = if (n <= 1) 1L else n * factorial(n - 1)
 
 factorial(5)
+
+import scala.annotation.tailrec
+import scala.io.Source
 
 @tailrec // This is a useful annotation because it serves to document the fact that your method is tail-recursive
 // but also, if for some reason it isn't, then the compiler will warn you.

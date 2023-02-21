@@ -1,4 +1,3 @@
-import scala.annotation.tailrec
 // Expressions
 
 1 + 1 // A simple expression: 1 plus 1 is 2
@@ -14,6 +13,7 @@ def f(x: Int): Int = if (x == 1) 1 else x * f(x - 1)
 
 f(5)    // should return an Int with value 120
 
+import scala.annotation.tailrec
 // Tail-recursive method to calculate factorial(x)
 @tailrec
 def g(r: BigInt, x: Int): BigInt = if (x == 1) r else g(r * x, x - 1)

@@ -1,4 +1,3 @@
-import scala.util.Random
 // Types and Type constructors:
 
 val b = true // the compiler uses type inference to deduce that b has type Boolean.
@@ -10,6 +9,8 @@ val x = math.Pi // the compiler uses type inference to deduce that x has type Do
 val y: Double = 42 // we overrode type inference to require that y is actually a Double, not an Int.
 
 val z: java.lang.String = "Hello World!" // Hello World is a java.lang.String (Scala uses the Java type as is).
+
+import scala.util.Random
 
 /**
  * Prime will be a BigInt that is a Prime number of 12 bits except once in every million cases.

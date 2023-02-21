@@ -1,4 +1,3 @@
-import java.util.Locale
 // Objects and Classes
 
 // An object: note that there are no constructor parameters nor any parametric (generic) types
@@ -32,6 +31,8 @@ object MainProgram extends App {
 trait Greeting {
     def greet: String
 }
+
+import java.util.Locale
 
 /**
  * Now, we create a class with a (constructor) parameter locale which determines the text of the greeting.
