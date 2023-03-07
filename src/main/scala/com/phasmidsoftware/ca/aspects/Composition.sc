@@ -1,4 +1,5 @@
-// Composition
+// Functional Composition
+
 
 val doubleIt: Int => Double = _ * 2.0
 
@@ -25,17 +26,30 @@ val areaOfEllipseWithMajorFixedAt3 = areaOfEllipseCurried(3)
 
 areaOfEllipseWithMajorFixedAt3(2)
 
-// Lift
+// What does map do to an Option, Try, etc.
 
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
-import scala.util._
+import com.phasmidsoftware.ca.util.ParseNumber
+
+val maybeString: Option[String] = Option(ParseNumber.parseNumber("Hello"))
+val maybeInt: Option[Int] = maybeString map (_.toInt)
+
+// invoking map with (_.toInt) is equivalent to:
+maybeString match {
+    case Some(x) => Some(x.toInt)
+    case None => None
+}
+
+// Lift
 
 def lift[T, R](f: T => R): Option[T] => Option[R] = _ map f
 
 val circumference: Int => Double = _ * math.Pi
 
 // can't do this until 2.13:  val radius = "3".toIntOption
+
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
+import scala.util._
 
 val maybeRadius: Option[Int] = Try("3".toInt).toOption // This is how we have to do it in Scala 2.12
 
