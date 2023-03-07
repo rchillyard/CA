@@ -2,7 +2,7 @@
 // Don't forget that when you upgrade to 2.13, all your Streams will be deprecated and thus need (eventually) to be LazyLists.
 
 // Define a Stream of ALL positive integers (unlimited).
-val positiveIntegers = Stream.from(1) // Note we cannot yet "see" the second element
+val positiveIntegers: Seq[BigInt] = Stream.iterate(BigInt(0))(_+BigInt(1)) // Note we cannot yet "see" the second element
 
 import scala.language.postfixOps
 import scala.util.Random

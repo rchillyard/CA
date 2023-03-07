@@ -24,6 +24,7 @@ val sum = xs.sum
 val (ao, bo) = (Option(1), Option(null))
 // We get None as a result because we only have one existing Option value.
 for (a <- ao; b <- bo) yield a + b
+//ao.flatMap(a => bo.map(b => a + b))
 
 // Using a kind of three-way coin-flip where heads = Some(true),
 // return heads if two flips are heads.

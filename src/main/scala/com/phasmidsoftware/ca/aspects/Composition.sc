@@ -6,6 +6,7 @@ val doubleIt: Int => Double = _ * 2.0
 val addHalf: Double => String = x => (x + 0.5).toString
 
 (doubleIt andThen addHalf)(3)
+(addHalf compose doubleIt)(3)
 
 // Curried Functions
 def areaOfEllipse(major: Double, minor: Double): Double = math.Pi * major * minor

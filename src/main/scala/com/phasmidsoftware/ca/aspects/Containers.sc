@@ -12,7 +12,10 @@ val z = ("A", 1, math.Pi) // this is a Tuple3[String,Int,Double], a.k.a. (String
 
 // Tuples are Products (short for Cartesian product)
 // We can, for example, get the ith value (but as an Any)
-val x = z.productElement(1)
+val x1: Any = z.productElement(1)
+val x2 = z._2
+
+x1 == x2
 
 // We can "zip" two lists together into a list of tuples.
 // Both the lists (and the result) are immutable.
@@ -31,6 +34,8 @@ val countryCodes: List[String] = List("1", "44", "33", "91", "86")
 // That way we see the failure but we don't terminate the program.
 // We've constructed a new type: Try[String] where Try is a monadic container.
 
+import scala.concurrent.Await
+import scala.concurrent.duration.Duration
 import scala.util.Try
 
 val fifthCountryCode: Try[String] = Try(countryCodes(5))
@@ -79,7 +84,7 @@ val stack0 = Stack[Int](Nil)
 
 val stack1 = stack0 push 1
 
-val stack2 = stack1.pop
+val (xo, stack2) = stack1.pop
 
 /**
  * Now, let's make a mutable stack.
@@ -119,10 +124,11 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.language.postfixOps // Needed for Future.apply
 
-val future = Future {
-    (Stream from 1 take 10000 toList).sum
+val future: Future[Int] = Future {
+    (Stream from 1 take 10000).sum
 }
-future.onComplete(xy => println(xy))
+
+future.onComplete(xy => println(s"sum=$xy"))
 
 // and Either...
 
@@ -133,3 +139,6 @@ val perhapsPi: Option[Either[Double, Int]] = parseNumber("3.1415927")
 parseNumber("42")
 
 parseNumber("not a number")
+
+// We do have to block here otherwise the program ends without us seeing a result.
+val theSum: Int = Await.result(future, Duration("10 second"))

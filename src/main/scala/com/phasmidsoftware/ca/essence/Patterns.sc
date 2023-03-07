@@ -1,3 +1,4 @@
+import scala.util.matching.Regex
 // Pattern-matching
 
 case class Complex(r: Double, i: Double) {
@@ -10,6 +11,8 @@ val unit_piBy2 = Complex(0, 1)
 
 val z = unit_piBy2 * unit_piBy2
 
+val Complex(a,b) = z
+
 def show(c: Complex): String = c match {
     case `zero` => "zero" // variable pattern which matches a variable called zero
     case Complex(0, 1) => "pi/2" // constant extractor pattern
@@ -19,8 +22,18 @@ def show(c: Complex): String = c match {
     // The following looks OK but causes compiler warnings because it can't be reached.
     case _ => "" // matches everything anonymously.
 }
-
+show(unit_piBy2)
+show(Complex(0,0.1))
+show(zero)
 show(z)
+
+val numberR: Regex = """(\d+)""".r
+
+val w = "Hello"
+w match {
+    case numberR(w) => w.toLong
+    case _ => -1
+}
 
 // Now, we will demonstrate sage of an explicit unapply method.
 case class Factor(f: Int) {
