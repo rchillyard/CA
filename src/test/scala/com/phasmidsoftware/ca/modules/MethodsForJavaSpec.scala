@@ -31,6 +31,6 @@ class MethodsForJavaSpec extends AnyFlatSpec with should.Matchers {
         val clazz: Class[String] = classOf[String]
         val randomIntSupplier: Supplier[String] = MethodsForJava.randomSupplier(clazz, 0L)
         a[Exception] should be thrownBy randomIntSupplier.get()
-
     }
+
 }

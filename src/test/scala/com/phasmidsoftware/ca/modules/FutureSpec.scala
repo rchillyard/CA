@@ -17,15 +17,16 @@ class FutureSpec extends AnyFlatSpec with Matchers with Futures with ScalaFuture
 
     it should "succeed for https://www.google.com" in {
         val uyf: Future[Try[URL]] = Future(Try(new URL("https://www.google.com")))
-        whenReady(uyf) { u => u should matchPattern { case Success(_: URL) => } }
+        whenReady(uyf) { uy => uy should matchPattern { case Success(_: URL) => } }
     }
 
     it should "succeed for two Futures" in {
         val uyf1: Future[Try[URL]] = Future(Try(new URL("https://www.google.com")))
         val uyf2: Future[Try[URL]] = Future(Try(new URL("https://www.apple.com")))
         // NOTE that because uyf1/2 are Futures uy1/2 are Trys, we need a nested for comprehension
-        val uyf = for (uy1 <- uyf1; uy2 <- uyf2) yield for (u1 <- uy1; u2 <- uy2) yield u1 -> u2
-        whenReady(uyf) { u => u should matchPattern { case Success((_, _)) => } }
+        val uyf: Future[Try[(URL, URL)]] = for (uy1 <- uyf1; uy2 <- uyf2) yield for (u1 <- uy1; u2 <- uy2) yield u1 -> u2
+//        val z: Future[Seq[Try[URL]]] = Future.sequence(Seq(uyf1,uyf2))
+        whenReady(uyf) { uUy => uUy should matchPattern { case Success((_, _)) => } }
     }
 
     behavior of "Using"

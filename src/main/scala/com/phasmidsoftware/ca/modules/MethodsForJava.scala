@@ -2,12 +2,19 @@ package com.phasmidsoftware.ca.modules
 
 import java.lang
 import java.util.function.Supplier
+import scala.collection.JavaConverters._
+import scala.collection.mutable
 import scala.util.Random
 
 /**
  * This module includes some methods whose API is specifically designed to be called from Java.
  */
 object MethodsForJava {
+
+    def reverse[X](xs: java.util.List[X]): java.util.List[X] = {
+        val javaXs: mutable.Seq[X] = xs.asScala
+        javaXs.reverse.asJava
+    }
 
     /**
      * Method to return a generic random object supplier for a Java class.

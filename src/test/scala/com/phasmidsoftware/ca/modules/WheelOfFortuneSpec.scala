@@ -42,6 +42,7 @@ class WheelOfFortuneSpec extends AnyFlatSpec with should.Matchers with PrivateMe
         def increment(k: String): Option[Int] = put(k, getOrElse(k, 0) + 1)
     }
 
+    // NOTE use of +- to define a tolerance range.
     it should "yield proper relative frequencies in video poker" in {
         implicit val r: Random = new Random()
         val wheel = WheelOfFortune.create("high-card" -> 1302540, "pair" -> 1098240, "two-pair" -> 123552, "trips" -> 54912, "straight" -> 10200, "flush" -> 5108, "full-house" -> 3744, "quads" -> 624, "straight-flush" -> 36, "royal" -> 4)
@@ -57,17 +58,17 @@ class WheelOfFortuneSpec extends AnyFlatSpec with should.Matchers with PrivateMe
     it should "selectEvent" in {
         implicit val random: Random = new Random(0)
         val wheelOfFortune = WheelOfFortune.create[Int](0 -> 32, 1 -> 16, 2 -> 8, 3 -> 4, 4 -> 2, 5 -> 1)
-        val decorateSelectEvent = PrivateMethod[Int](Symbol("selectEvent"))
-        wheelOfFortune invokePrivate decorateSelectEvent.apply(0) shouldBe 0
-        wheelOfFortune invokePrivate decorateSelectEvent.apply(31) shouldBe 0
-        wheelOfFortune invokePrivate decorateSelectEvent.apply(32) shouldBe 1
-        wheelOfFortune invokePrivate decorateSelectEvent.apply(47) shouldBe 1
-        wheelOfFortune invokePrivate decorateSelectEvent.apply(48) shouldBe 2
-        wheelOfFortune invokePrivate decorateSelectEvent.apply(55) shouldBe 2
-        wheelOfFortune invokePrivate decorateSelectEvent.apply(56) shouldBe 3
-        wheelOfFortune invokePrivate decorateSelectEvent.apply(59) shouldBe 3
-        wheelOfFortune invokePrivate decorateSelectEvent.apply(60) shouldBe 4
-        wheelOfFortune invokePrivate decorateSelectEvent.apply(61) shouldBe 4
-        wheelOfFortune invokePrivate decorateSelectEvent.apply(62) shouldBe 5
+        val selectEvent = PrivateMethod[Int](Symbol("selectEvent"))
+        wheelOfFortune invokePrivate selectEvent(0) shouldBe 0
+        wheelOfFortune invokePrivate selectEvent(31) shouldBe 0
+        wheelOfFortune invokePrivate selectEvent(32) shouldBe 1
+        wheelOfFortune invokePrivate selectEvent(47) shouldBe 1
+        wheelOfFortune invokePrivate selectEvent(48) shouldBe 2
+        wheelOfFortune invokePrivate selectEvent(55) shouldBe 2
+        wheelOfFortune invokePrivate selectEvent(56) shouldBe 3
+        wheelOfFortune invokePrivate selectEvent(59) shouldBe 3
+        wheelOfFortune invokePrivate selectEvent(60) shouldBe 4
+        wheelOfFortune invokePrivate selectEvent(61) shouldBe 4
+        wheelOfFortune invokePrivate selectEvent(62) shouldBe 5
     }
 }
